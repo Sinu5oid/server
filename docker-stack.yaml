@@ -6,6 +6,16 @@ services:
       - "traefik.http.services.web.loadbalancer.server.port=8080"
       - "traefik.http.routers.web.rule=Host(`meowlab.tech`)"
       - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.middlewares=test-compress"
+      - "traefik.docker.network=proxy"
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.http.middlewares.test-compress.compress=true"
+    networks:
+      - proxy
     deploy:
       update_config:
         order: start-first
+
+networks:
+  proxy:
+    external: true

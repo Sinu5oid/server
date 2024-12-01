@@ -7,15 +7,15 @@ services:
       - "traefik.http.routers.web.rule=Host(`meowlab.tech`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.middlewares=test-compress"
-      - "traefik.docker.network=proxy"
+      - "traefik.docker.network=proxy-swarm"
       - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.http.middlewares.test-compress.compress=true"
     networks:
-      - proxy
+      - proxy-swarm
     deploy:
       update_config:
         order: start-first
 
 networks:
-  proxy:
+  proxy-swarm:
     external: true

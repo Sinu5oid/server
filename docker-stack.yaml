@@ -1,0 +1,11 @@
+services:
+  web:
+    image: ghcr.io/sinu5oid/server:${GIT_COMMIT_HASH:-latest}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.web.loadbalancer.server.port=8080"
+      - "traefik.http.routers.web.rule=Host(`meowlab.tech`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+    deploy:
+      update_config:
+        order: start-first

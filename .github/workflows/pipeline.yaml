@@ -27,8 +27,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/dreamsofcode-io/zenstats:latest
-            ghcr.io/dreamsofcode-io/zenstats:${{ github.sha }}
+            ghcr.io/sinu5oid/server:latest
+            ghcr.io/sinu5oid/server:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,9 +45,9 @@ jobs:
     - name: Docker Stack Deploy
       uses: cssnr/stack-deploy-action@v1
       with:
-        name: zenfulstats
+        name: server
         file: docker-stack.yaml
-        host: meowlab.tech
+        host: ${{ secrets.VPS_HOST }}
         user: deploy
         ssh_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
         env_file: ./envfile

@@ -1,6 +1,8 @@
 services:
   web:
     image: ghcr.io/sinu5oid/server:${GIT_COMMIT_HASH:-latest}
+    networks:
+      - proxy-swarm
     deploy:
       labels:
         - "traefik.enable=true"
@@ -11,8 +13,6 @@ services:
         - "traefik.docker.network=proxy-swarm"
         - "com.centurylinklabs.watchtower.enable=true"
         - "traefik.http.middlewares.test-compress.compress=true"
-      networks:
-        - proxy-swarm
       update_config:
         order: start-first
 
